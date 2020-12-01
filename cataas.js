@@ -10,7 +10,6 @@ bot.on('text', function (msg) {
     console.log(`[text] ${ msg.chat.id } ${ msg.text }`);
 });
 
-
 // On command "cataas" or "cataasgif"
 
 bot.on(['/cataas', '/cataasgif'], function (msg) {
@@ -32,19 +31,21 @@ bot.on(['/cataas', '/cataasgif'], function (msg) {
         });
     }
 	
-		
     // Send "uploading photo" action
     bot.sendAction(id, 'upload_photo');
 
     return promise.catch(error => {
         console.log('[error]', error);
         // Send an error
-        bot.sendMessage(id, `😿 An error ${ error } occurred, try again.`);
+        bot.sendMessage(id, `😿 An error occurred, try again later.\n${error.description}`);
     });
 
 });
 
-
 bot.on('/start', (msg) => {
     return msg.reply.text('Hey, Welcome to the Cataas Telegram Bot, Use /cataas or /cataasgif for pics and gifs!', { asReply: true });
+});
+
+bot.on('/help', (msg) => {
+    return msg.reply.text('Hey, Welcome to the Cataas Telegram Bot Help page,\nUse /cataas to get a cat image\nUse /cataasgif to get a cat gif', { asReply: true });
 });
